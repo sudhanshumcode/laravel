@@ -18,7 +18,8 @@ use App\Http\Controllers\ApisController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('login',[ApisController::class,'login']);
+
 Route::middleware('auth:api')->get("getdata",[ApisController::class, 'index']);
 Route::post("register",[ApisController::class, 'register']);
 Route::post("login",[ApisController::class, 'login']);
+Route::get('login',[ApisController::class,'login']);
