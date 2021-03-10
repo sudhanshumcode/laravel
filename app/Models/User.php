@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable,HasApiTokens;
@@ -20,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'token_expire_at',
     ];
 
     /**
@@ -39,5 +42,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+      
     ];
+
+    public function tokenExpired()
+{
+    $expire_at=DB::table("oauth_access_tokens")->where("user_id",$this->attributes['id'])->orderBy("created_at","desc")->first();
+   
+    if (Carbon::parse($expire_at->expires_at) < Carbon::now()) {
+        return true;
+    }
+    return false;
+}
 }

@@ -9,6 +9,8 @@ use App\Models\User;
 use Dotenv\Validator as DotenvValidator;
 use Illuminate\Support\Facades\Redis;
 use Validator;
+use Carbon\Carbon;
+
 
 class ApisController extends Controller
 {
@@ -33,7 +35,11 @@ class ApisController extends Controller
 			$userdata['password']=bcrypt($userdata['password']);
 			$user=User::create($userdata);
 			$res["name"]=$user->name;
+			
 			$res["token"]=$user->createToken("MyApp")->accessToken;
+			$redis = Redis::connection("cache");
+			$redis->set($user->id, $res["token"]);
+
 			return response()->json($res,200);
 	}
 	
@@ -41,7 +47,36 @@ class ApisController extends Controller
 		if(Auth::attempt(["email"=>$request->email,"password"=>$request->password])){
 			$user=Auth::user();
 			$res["name"]=$user->name;
-			$res["token"]=$user->createToken("MyApp")->accessToken;
+			$redis = Redis::connection("cache");
+			//$res["token"]=$user->createToken("MyApp")->accessToken;
+		
+			
+		
+			if($redis->get($user->id)){
+				if($user->tokenExpired()){
+					$res["token"]=$user->createToken("MyApp")->accessToken;;
+					$redis->set($user->id, $res["token"]);
+	
+			$current_date_time = Carbon::now()->toDateTimeString();
+			$user->update(array("token_expire_at"=>$current_date_time));
+
+				}else{
+					$res["token"]=$redis->get($user->id);
+				}
+			}else{
+				$res["token"]=$user->createToken("MyApp")->accessToken;;
+				$redis->set($user->id, $res["token"]);
+
+				$current_date_time = Carbon::now()->toDateTimeString();
+				$user->update(array("token_expire_at"=>$current_date_time));
+			}
+			//$res["token"]=$user->createToken("MyApp")->accessToken;;
+/*$objToken = $user->createToken('MyApp');
+
+$res["token"] = $objToken->accessToken;
+$redis->set($user->id, $res["token"]);
+$res["expiration"] = $objToken->token->expires_at->diffInSeconds(Carbon::now());
+*/
 			return response()->json($res,200);
 			
 		}else{
