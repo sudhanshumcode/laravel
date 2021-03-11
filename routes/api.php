@@ -23,3 +23,10 @@ Route::middleware('auth:api')->get("getdata",[ApisController::class, 'index']);
 Route::post("register",[ApisController::class, 'register']);
 Route::post("login",[ApisController::class, 'login']);
 Route::get('login',[ApisController::class,'login']);
+Route::get('getPosts',[ApisController::class,'getPosts']);
+
+
+
+
+
+

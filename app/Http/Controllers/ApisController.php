@@ -10,7 +10,7 @@ use Dotenv\Validator as DotenvValidator;
 use Illuminate\Support\Facades\Redis;
 use Validator;
 use Carbon\Carbon;
-
+use \App\Models\Posts;
 
 class ApisController extends Controller
 {
@@ -83,4 +83,14 @@ $res["expiration"] = $objToken->token->expires_at->diffInSeconds(Carbon::now());
 			return response()->json(['error'=>'Unauthenticated'],203);
 		}
 	}
+
+	public function getPosts(){
+        
+		$posts= DB::table('posts')->get();
+/*$post=Posts::Find("3");
+		$post->post_title="new qwe 123";
+		$post->save();
+		*/
+		 return ["post"=>$posts,"hhh"=>'re']; 
+	 }
 }
