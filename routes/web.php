@@ -19,8 +19,6 @@ use Carbon\Carbon;
 */
 
 Route::get('/', function () {
-  //$redis=Redis::make("redis");
- // $redis = Redis::connection(6379)->publish('test-channel', json_encode(['foo' => 'bar']));
 
 /*$redis = Redis::connection("cache");
 
@@ -34,7 +32,7 @@ $name = $redis->get('test12344555');
   return "not found";
 }*/
 session(['key12' => 'value']);
-session()->forget("key12");
+
 $data = session()->all();
      return view("welcome");
 });
@@ -57,7 +55,6 @@ Route::get("sendMail",function(){
   
     dispatch(new SendEmailJob($details))->delay(Carbon::now()->addSeconds(5));
   
-  //  dd('done');
     return "mail sent ";
 });
 
@@ -66,3 +63,4 @@ Route::group(['prefix' => 'user',"middleware"=>"auth:api"], function() {
       return response()->json(request()->user());
   });
 });
+

@@ -31,6 +31,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
           integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw=="
           crossorigin="anonymous"/>
+          <link rel="stylesheet" href="css/app.css" />
 
     @yield('third_party_stylesheets')
 
@@ -54,6 +55,9 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
                          class="user-image img-circle elevation-2" alt="User Image">
+                 @if (Auth::guest())
+
+                 @else
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -75,14 +79,20 @@
                             Sign out
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
+                            @csrf   
                         </form>
                     </li>
                 </ul>
+                @endif
             </li>
         </ul>
     </nav>  
-  
+    <div id="app">
+    <div class="">
+    <example-component></example-component>
+      
+    </div>
+</div>
     <!-- Left side column. contains the logo and sidebar -->
 @include('layouts.sidebar')
 
@@ -153,5 +163,7 @@
 
 @stack('page_scripts')
 @livewireScripts
+
+<script defer src="js/app.js"></script>
 </body>
 </html>

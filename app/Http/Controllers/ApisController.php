@@ -84,13 +84,32 @@ $res["expiration"] = $objToken->token->expires_at->diffInSeconds(Carbon::now());
 		}
 	}
 
-	public function getPosts(){
+	public function getPosts(Request $request){
+		$posts= DB::table('users')->get();
+		
+
+		// and then you can get query log
+		
+		//dd(DB::getQueryLog());
+	//	$posts= Posts::query()->get()->lock('for update nowait');
+     /*   DB::beginTransaction();
+		
         
-		$posts= DB::table('posts')->get();
+        try {
+		$posts= DB::table('posts')->where('id','=',"4")->delete();
 /*$post=Posts::Find("3");
 		$post->post_title="new qwe 123";
-		$post->save();
-		*/
-		 return ["post"=>$posts,"hhh"=>'re']; 
+		$post->save();*
+		DB::commit();
+		 return ["post"=>$posts,"hhh"=>'re'];
+		}catch (\Exception $e) {
+            DB::rollback();
+            
+
+            // something went wrong
+            return "something went wrong".$e->getMessage();
+			return ["post"=>$posts,"hhh"=>'re'];
+        } */
+		return ["post"=>$posts,"hhh"=>'re'];
 	 }
 }

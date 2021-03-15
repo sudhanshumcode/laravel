@@ -7,27 +7,32 @@ use Illuminate\Support\Facades\DB;
 use \App\Models\Posts;
 class PostController extends Controller
 {
-    //
+
     public function add_posts(){
         DB::beginTransaction();
+		
+        
         try {
-           DB::table('posts')->where('id', '>', "4")->lockForUpdate()->get();
-//DB::unprepared('LOCK TABLES posts WRITE');
-            DB::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 13","Thsi is the test","admin 3"]);
+         
+         DB::table('posts')->where('id', '>', "4")->lockForUpdate()->get();
+    
+        Posts::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 13","Thsi is the test","admin 3"]);
             sleep(10);
-            DB::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 124","Thsi is the test","admin 4"]);
+            Posts::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 124","Thsi is the test","admin 4"]);
             sleep(10);
-            DB::insert("insert into posts (post_title,post_content,authname) values (?, ?,?)",["Test 5","Thsi is the test","admin 5"]);
+           Posts::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 5","Thsi is the test","admin 5"]);
             sleep(10);
-            DB::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test j3","Thsi is the test","admin 3"]);
+            Posts::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test j3","Thsi is the test","admin 3"]);
             sleep(10);
-            DB::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 84","Thsi is the test","admin 4"]);
+            Posts::insert("insert into posts (post_title,post_content,author_name) values (?, ?,?)",["Test 84","Thsi is the test","admin 4"]);
             sleep(10);
             DB::commit();
-            // all good
+        
             return "all good";
         } catch (\Exception $e) {
             DB::rollback();
+            
+
             // something went wrong
             return "something went wrong".$e->getMessage();
         }
