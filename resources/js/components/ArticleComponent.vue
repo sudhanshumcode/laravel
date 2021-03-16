@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-6 col-md-offset-3">
             <ul class="pagination">
-                <li v-bind:class="[{disable: !pagination.next_page_url}]"><a href="#">Prev</a></li>
+                <li v-bind:class="[{disable: !pagination.prev_page_url}]"><a href="#">Prev</a></li>
                 <li><a href="">next</a></li>
             </ul>
                 <div class="articles_show" v-for="article in articles" v.bind:key="article.id">
@@ -25,7 +25,8 @@
                     title:"",
                     body:""
                 },
-                article_id:""
+                article_id:"",
+                pagination:"",
             }
         },
         created(){
@@ -51,12 +52,13 @@
                       }
                     });
                  });
-            pagination ={
+           var  pagination ={
                   prev_page_url :(meta.prev_page_url ==null)?"":meta.prev_page_url,
                   next_page_url:meta.next_page_url,
                   current_page_url:current_page,
                   last_page:meta.last_page_url
               }
+              this.pagination=pagination;
               console.log(pagination.prev_page_url+"=============="+pagination.next_page_url);
             }
         },
