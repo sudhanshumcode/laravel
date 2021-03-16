@@ -20,14 +20,36 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('article-component',require('./components/ArticleComponent.vue'))
+import App from './components/ExampleComponent.vue';
+import Article from './components/ArticleComponent.vue';
+import Vue from 'vue';
 
+// Define a new component called button-counter
+Vue.component('button-counter', {
+    data: function () {
+      return {
+        count: 0
+      }
+    },
+    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+  })
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+/*
 const app = new Vue({
     el: '#app',
     
-});
+});*/
+
+/*new Vue({
+    render: h => h(App)
+}).$mount("#app");
+*/
+new Vue({
+    render: h => h(Article)
+}).$mount("#article");
+//new Vue({ el: '#components-demo' })

@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
+<script>
+window.laravel =  <?php echo json_encode([
+    'csrfToken' => csrf_token(),
+]); ?>
+</script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
@@ -31,8 +35,9 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
           integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw=="
           crossorigin="anonymous"/>
-          <link rel="stylesheet" href="css/app.css" />
-
+          <!--link rel="stylesheet" href="css/app.css" /-->
+          <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+         
     @yield('third_party_stylesheets')
 
     @stack('page_css')
@@ -56,8 +61,9 @@
                     <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
                          class="user-image img-circle elevation-2" alt="User Image">
                  @if (Auth::guest())
-
+                    ssss
                  @else
+                 sssssss
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -86,13 +92,8 @@
                 @endif
             </li>
         </ul>
-    </nav>  
-    <div id="app">
-    <div class="">
-    <example-component></example-component>
-      
-    </div>
-</div>
+    </nav> 
+
     <!-- Left side column. contains the logo and sidebar -->
 @include('layouts.sidebar')
 
@@ -163,7 +164,8 @@
 
 @stack('page_scripts')
 @livewireScripts
+<script src="{{ mix('js/app.js') }}"></script>
+<!--script defer src="js/app.js"></script-->
 
-<script defer src="js/app.js"></script>
 </body>
 </html>

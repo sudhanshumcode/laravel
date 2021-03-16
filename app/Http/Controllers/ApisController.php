@@ -91,7 +91,7 @@ $res["expiration"] = $objToken->token->expires_at->diffInSeconds(Carbon::now());
 		// and then you can get query log
 		
 		//dd(DB::getQueryLog());
-	//	$posts= Posts::query()->get()->lock('for update nowait');
+	//		$posts= Posts::query()->get()->lock('for update nowait');
      /*   DB::beginTransaction();
 		
         
