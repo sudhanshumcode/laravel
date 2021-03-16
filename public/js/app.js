@@ -1901,13 +1901,13 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
-      var pagination = {
-        "prev_page_url": meta.prev_page_url,
-        "next_page_url": meta.next_page_url,
-        "current_page_url": current_page,
-        "last_page": meta.last_page_url
+      pagination = {
+        prev_page_url: meta.prev_page_url == null ? "" : meta.prev_page_url,
+        next_page_url: meta.next_page_url,
+        current_page_url: current_page,
+        last_page: meta.last_page_url
       };
-      console.log(pagination + "==============");
+      console.log(pagination.prev_page_url + "==============" + pagination.next_page_url);
     }
   },
   mounted: function mounted() {
@@ -37616,7 +37616,7 @@ var render = function() {
         { staticClass: "col-md-offset-3 col-md-6 col-md-offset-3" },
         [
           _c("ul", { staticClass: "pagination" }, [
-            _c("li", { class: [{ disable: !_vm.pagination.prev_page_url }] }, [
+            _c("li", { class: [{ disable: !_vm.pagination.next_page_url }] }, [
               _c("a", { attrs: { href: "#" } }, [_vm._v("Prev")])
             ]),
             _vm._v(" "),
