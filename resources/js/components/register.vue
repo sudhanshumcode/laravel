@@ -5,6 +5,9 @@
                 <div class="col-md-12">
                     <h2 class="h1 text-center">Register</h2>
                     <hr>
+                    <div v-for="err in errors" v-bind:key="err.id" class="error">
+                        {{err[0]}}
+                    </div>
                     <div v-html="rawhtml"></div>
                     <form class="container col-md-offset-3 col-md-6" @submit.prevent="formSubmiting()">
                         <div class="form-group row">
@@ -63,6 +66,7 @@ export default({
             countries:[],
             states:[],
             cites:[],
+            errors:[],
             rawhtml:""
         }
     },
@@ -75,12 +79,14 @@ export default({
                'Accept': 'application/json'
               }})
             .then(response=>{
-               console.log(response.body+"========");
+               console.log(response.data.err+"========");
                     if(response.status==202){
                          var html ="<div class='alert alert-danger'>";
                             html+="<p>Please fill Required feilds</p>";
                             html +="</div>"; 
-                            this.rawhtml=html;
+                            //  this.errors=response.data.err;
+                          //  this.rawhtml=response;
+                          this.errors=response.data.err;
                     }else{
                         alert("Register successfully");
                         this.formdata.name=null;
@@ -92,6 +98,7 @@ export default({
                     this.states=[];
                     this.cites=[];
                     this.rawhtml="";
+
                     }
                 
                 

@@ -2326,6 +2326,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "register",
   data: function data() {
@@ -2341,6 +2344,7 @@ __webpack_require__.r(__webpack_exports__);
       countries: [],
       states: [],
       cites: [],
+      errors: [],
       rawhtml: ""
     };
   },
@@ -2354,13 +2358,15 @@ __webpack_require__.r(__webpack_exports__);
           'Accept': 'application/json'
         }
       }).then(function (response) {
-        console.log(response.body + "========");
+        console.log(response.data.err + "========");
 
         if (response.status == 202) {
           var html = "<div class='alert alert-danger'>";
           html += "<p>Please fill Required feilds</p>";
-          html += "</div>";
-          _this.rawhtml = html;
+          html += "</div>"; //  this.errors=response.data.err;
+          //  this.rawhtml=response;
+
+          _this.errors = response.data.err;
         } else {
           alert("Register successfully");
           _this.formdata.name = null;
@@ -39451,265 +39457,282 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("h2", { staticClass: "h1 text-center" }, [_vm._v("Register")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { domProps: { innerHTML: _vm._s(_vm.rawhtml) } }),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            staticClass: "container col-md-offset-3 col-md-6",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.formSubmiting()
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { staticClass: "co" }, [_vm._v("Name ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formdata.name,
-                    expression: "formdata.name"
-                  }
-                ],
-                staticClass: "form-group col-md-12",
-                attrs: { value: "", type: "text", placeholder: "UserName" },
-                domProps: { value: _vm.formdata.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formdata, "name", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { staticClass: "col-" }, [_vm._v("Password ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formdata.password,
-                    expression: "formdata.password"
-                  }
-                ],
-                staticClass: "form-group col-md-12",
-                attrs: { value: "", type: "password", placeholder: "Password" },
-                domProps: { value: _vm.formdata.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formdata, "password", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { staticClass: "col-" }, [_vm._v("Email ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formdata.email,
-                    expression: "formdata.email"
-                  }
-                ],
-                staticClass: "form-group col-md-12",
-                attrs: { value: "", type: "email", placeholder: "Email" },
-                domProps: { value: _vm.formdata.email },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formdata, "email", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { staticClass: "col-" }, [_vm._v("Address ")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formdata.country,
-                      expression: "formdata.country"
-                    }
-                  ],
-                  staticClass: "col-md-3 country",
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.formdata,
-                          "country",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
-                      function($event) {
-                        return _vm.getState(_vm.formdata.country)
-                      }
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Country")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.countries, function(count) {
-                    return _c(
-                      "option",
-                      { key: count.id, domProps: { value: count.id } },
-                      [_vm._v(_vm._s(count.name))]
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formdata.state,
-                      expression: "formdata.state"
-                    }
-                  ],
-                  staticClass: "col-md-3",
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.formdata,
-                          "state",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
-                      function($event) {
-                        return _vm.getcites(_vm.formdata.state)
-                      }
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select State")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.states, function(state) {
-                    return _c(
-                      "option",
-                      { key: state.id, domProps: { value: state.id } },
-                      [_vm._v(_vm._s(state.name))]
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formdata.city,
-                      expression: "formdata.city"
-                    }
-                  ],
-                  staticClass: "col-md-3",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.formdata,
-                        "city",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select City")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.cites, function(city) {
-                    return _c(
-                      "option",
-                      { key: city.id, domProps: { value: city.id } },
-                      [_vm._v(_vm._s(city.name))]
-                    )
-                  })
-                ],
-                2
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("h2", { staticClass: "h1 text-center" }, [_vm._v("Register")]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _vm._l(_vm.errors, function(err) {
+            return _c("div", { key: err.id, staticClass: "error" }, [
+              _vm._v(
+                "\n                    " + _vm._s(err[0]) + "\n                "
               )
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ]
-        )
-      ])
+            ])
+          }),
+          _vm._v(" "),
+          _c("div", { domProps: { innerHTML: _vm._s(_vm.rawhtml) } }),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "container col-md-offset-3 col-md-6",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.formSubmiting()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "co" }, [_vm._v("Name ")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formdata.name,
+                      expression: "formdata.name"
+                    }
+                  ],
+                  staticClass: "form-group col-md-12",
+                  attrs: { value: "", type: "text", placeholder: "UserName" },
+                  domProps: { value: _vm.formdata.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formdata, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-" }, [_vm._v("Password ")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formdata.password,
+                      expression: "formdata.password"
+                    }
+                  ],
+                  staticClass: "form-group col-md-12",
+                  attrs: {
+                    value: "",
+                    type: "password",
+                    placeholder: "Password"
+                  },
+                  domProps: { value: _vm.formdata.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formdata, "password", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-" }, [_vm._v("Email ")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formdata.email,
+                      expression: "formdata.email"
+                    }
+                  ],
+                  staticClass: "form-group col-md-12",
+                  attrs: { value: "", type: "email", placeholder: "Email" },
+                  domProps: { value: _vm.formdata.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formdata, "email", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-" }, [_vm._v("Address ")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formdata.country,
+                        expression: "formdata.country"
+                      }
+                    ],
+                    staticClass: "col-md-3 country",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formdata,
+                            "country",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.getState(_vm.formdata.country)
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select Country")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.countries, function(count) {
+                      return _c(
+                        "option",
+                        { key: count.id, domProps: { value: count.id } },
+                        [_vm._v(_vm._s(count.name))]
+                      )
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formdata.state,
+                        expression: "formdata.state"
+                      }
+                    ],
+                    staticClass: "col-md-3",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formdata,
+                            "state",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.getcites(_vm.formdata.state)
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select State")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.states, function(state) {
+                      return _c(
+                        "option",
+                        { key: state.id, domProps: { value: state.id } },
+                        [_vm._v(_vm._s(state.name))]
+                      )
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formdata.city,
+                        expression: "formdata.city"
+                      }
+                    ],
+                    staticClass: "col-md-3",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.formdata,
+                          "city",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select City")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.cites, function(city) {
+                      return _c(
+                        "option",
+                        { key: city.id, domProps: { value: city.id } },
+                        [_vm._v(_vm._s(city.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ],
+        2
+      )
     ])
   ])
 }
