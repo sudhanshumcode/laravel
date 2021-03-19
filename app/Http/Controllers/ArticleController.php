@@ -32,6 +32,7 @@ class ArticleController extends Controller
         //
         $validator =Validator::make($res->all(),[
             "title" =>"required",
+            "body" =>"required"
 
         ]);
         if($validator->fails()){

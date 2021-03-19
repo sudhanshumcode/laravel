@@ -9,9 +9,15 @@ window.laravel =  <?php echo json_encode([
     'csrfToken' => csrf_token(),
 ]); ?>
 </script>
+          <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    <link rel="stylesheet" href="//fontawesome.com/v4.7.0/assets/font-awesome/css/font-awesome.css"
+          
           crossorigin="anonymous"/>
 
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
@@ -36,12 +42,19 @@ window.laravel =  <?php echo json_encode([
           integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw=="
           crossorigin="anonymous"/>
           <!--link rel="stylesheet" href="css/app.css" /-->
+
           <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+
          
     @yield('third_party_stylesheets')
 
     @stack('page_css')
 	   @livewireStyles
+    <style>
+    body{
+        font-size:1.9rem;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -100,7 +113,7 @@ window.laravel =  <?php echo json_encode([
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content">
-        <livewire:search-user />
+        <!--livewire:search-user /-->
             @yield('content')
         </section>
     </div>
@@ -123,9 +136,7 @@ window.laravel =  <?php echo json_encode([
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" 
         crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" 
-        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         
 <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 

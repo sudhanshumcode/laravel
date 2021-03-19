@@ -23,6 +23,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('article-component',require('./components/ArticleComponent.vue'))
 import App from './components/ExampleComponent.vue';
 import Article from './components/ArticleComponent.vue';
+import register from './components/register.vue';
+import login from './components/login.vue';
 import Vue from 'vue';
 
 // Define a new component called button-counter
@@ -44,12 +46,25 @@ const app = new Vue({
     el: '#app',
     
 });*/
-
-/*new Vue({
+if($("#app").length > 0){
+new Vue({
     render: h => h(App)
 }).$mount("#app");
-*/
+
+}
+if($("#article").length > 0){
 new Vue({
     render: h => h(Article)
 }).$mount("#article");
+}
+if($("#register").length > 0){
+  new Vue({
+      render: h => h(register)
+  }).$mount("#register");
+  }
+  if($("#login").length > 0){
+    new Vue({
+        render: h => h(login)
+    }).$mount("#login");
+    }
 //new Vue({ el: '#components-demo' })

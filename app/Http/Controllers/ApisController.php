@@ -53,6 +53,8 @@ class ApisController extends Controller
 			
 		
 			if($redis->get($user->id)){
+				 
+			
 				if($user->tokenExpired()){
 					$res["token"]=$user->createToken("MyApp")->accessToken;;
 					$redis->set($user->id, $res["token"]);
@@ -64,6 +66,7 @@ class ApisController extends Controller
 					$res["token"]=$redis->get($user->id);
 				}
 			}else{
+			
 				$res["token"]=$user->createToken("MyApp")->accessToken;;
 				$redis->set($user->id, $res["token"]);
 

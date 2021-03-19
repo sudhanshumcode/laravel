@@ -54,4 +54,11 @@ class User extends Authenticatable
     }
     return false;
 }
+public function getUserIDFromToken($token){
+    
+    $user_id = DB::table('oauth_access_tokens')->where('id', $token)->value('user_id');
+    $isAdmin=DB::table("users")->where("id",$user_id)->get("isAdmin");
+    return $isAdmin[0]->isAdmin;
+
+}
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Jobs\SendEmailJob;
 use Carbon\Carbon;
 
- 
+ require "frontendapi/api.php";
 /*  
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +42,16 @@ Route::get("addpost",[App\Http\Controllers\PostController::class, 'add_posts']);
 Route::get("getPosts",[App\Http\Controllers\PostController::class, 'getPosts']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('setLocale:en')->name('home');
 Route::get('login',[ApisController::class,'login']);
+Route::get("vuejs/register",function(){
+  return view("vuejs.register");
+})->name("customregister");
+
+Route::get("vuejs",function(){
+  return view("vuejs");
+});
+Route::get("vuejs/login",function(){
+  return view("vuejs.login");
+})->name("customlogin");;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('auth:api')->name('home');

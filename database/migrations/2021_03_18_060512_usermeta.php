@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Articles extends Migration
+class Usermeta extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class Articles extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('usermetas', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('body');
-            $table->unsignedBigInteger("author_id");
-            $table->string("category");
-            $table->string("article_img");
-            $table->foreign('author_id')
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
             ->references('id')->on('users')
             ->onDelete('cascade');
-            $table->timestamps();
             });
     }
 
